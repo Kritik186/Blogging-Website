@@ -1,0 +1,19 @@
+<%- include("partials/header.ejs") %>
+
+<div class="container">
+    <h1>Blogs Site</h1>
+    <%blogapp.forEach(function(data){%>
+        <div class="row">
+           
+                <div class="col-md-4">
+                    <img src="<%=data.link%>"></div>
+                <div class="col-md-4">
+                    <h4><%=data.title%></h4>
+                    <p><%=data.description%></p>
+                    <a class="btn btn-primary" href="/blogs/<%=data._id%>">Know More</a>
+                </div>
+        </div>
+    <%})%>
+</div>
+
+<%- include("partials/footer.ejs") %>

@@ -1,0 +1,9 @@
+<%- include("partials/header.ejs") %>
+<h1> <%=found.title%> </h1>
+<img src="<%=found.link%>">
+<p><%=found.description%></p>
+
+<form action="/blogs/<%=found._id%>?_method=DELETE" method="POST">
+<button class="btn btn-primary">Delete</button></form>
+
+<%- include("partials/footer.ejs") %>
