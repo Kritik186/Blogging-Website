@@ -1,6 +1,10 @@
-img{
-    padding: 5%;
+#main{
+    padding: 2.5% 0;
+    border-bottom: 1px solid black;
 }
-#desc{
-    height: 200%;
+#total{
+    margin-top: 2.5%;
+    border: 1px solid black;
+    padding: 2%;
+    
 }

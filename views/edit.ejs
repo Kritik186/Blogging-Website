@@ -1,21 +1,21 @@
 <%- include("partials/header.ejs") %>
-<div class="container" >
+<div class="container" style="width: 30%; margin: auto auto;">
     <div class="header">Edit Your Blog</div>
     <div class="row">
         <form action="/blogs/<%=blog._id%>?_method=PUT" method="POST">
             <div class="form-group" ">
                 <label for="title">Title</label>
-                <input type="text" id="title" name="blog[title]" value="<%=blog.title%>">
+                <input type="text" id="title" class="form-control" name="blog[title]" value="<%=blog.title%>">
             </div>
             
             <div class="form-group field">
                 <label for="image">Image Link</label>
-                <input type="text" id="image" name="blog[link]" value="<%=blog.link%>" placeholder="Enter the url of the image">
+                <input type="text" id="image" name="blog[link]" class="form-control" value="<%=blog.link%>" placeholder="Enter the url of the image">
             </div>
             
             <div class="form-group">
                 <label for="desc">Description</label>
-                <input id="desc" type="text" name="blog[desc]" value="<%=blog.description%>" placeholder="Enter some information about the image"> 
+                <textarea name="blog[desc]" id="desc" cols="30"  class="form-control" rows="10"><%=blog.description%></textarea>
             </div>
             
             <div>

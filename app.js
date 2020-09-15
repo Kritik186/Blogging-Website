@@ -3,11 +3,14 @@ var app=express();
 var path = require("path");
 var methodOverride = require('method-override')
 var bodyParser=require('body-parser');
-app.use(bodyParser.urlencoded({extended:true}))
+var expressSanitizer=require("express-sanitizer");
+
 var mongoose=require("mongoose");
 mongoose.connect("mongodb://localhost/blogapp",{useNewUrlParser: true});
 
 app.use(methodOverride('_method'))
+app.use(bodyParser.urlencoded({extended:true}))
+app.use(expressSanitizer());
 app.use(express.static(__dirname + '/public'));
 app.set("view engine", "ejs");
 
@@ -18,19 +21,6 @@ var blogsSchema=mongoose.Schema({
 });
 
 var blog=mongoose.model("blog",blogsSchema);
-
-// blog.create({
-//     title: "Lake",
-//     link:"https://picsum.photos/id/1015/300/300",
-//     description:"This is a beautiful Lake between the mountains covered in snow."
-// })
-// blog.create({
-//     title: "Mountain",
-//     link:"https://picsum.photos/id/1016/300/300",
-//     description:"THe beautiful mountains which have been dried up due to constant heat of the sun."
-// })
-
-
 
 //Routes
 app.get("/blogs",function(req,res){
@@ -44,11 +34,12 @@ app.get("/blogs",function(req,res){
     
 });
 
-
+//new 
 app.get("/blogs/new",function(req,res){
     res.render("newBlog");
 })
 
+//create route
 app.post("/blogs",function(req,res){
     var head=req.body.head;
     var img=req.body.img;
@@ -58,6 +49,7 @@ app.post("/blogs",function(req,res){
         res.redirect("/blogs")
     });
 })
+
 //show route
 app.get("/blogs/:id",function(req,res){
     blog.findById(req.params.id,function(err,found){
@@ -69,6 +61,7 @@ app.get("/blogs/:id",function(req,res){
         }
     })
 })
+
 //edit route
 app.get("/blogs/:id/edit",function(req,res){
     blog.findById(req.params.id,function(err,editBlog){
@@ -83,6 +76,7 @@ app.get("/blogs/:id/edit",function(req,res){
 // update route
 app.put("/blogs/:id",function(req,res){
     console.log(req.body.blog)
+    req.body.blog.body=req.sanitize(req.body.blog.body);
     blog.findByIdAndUpdate(req.params.id,req.body.blog,function(err,foundAndUpdated){
         if(err){
             console.log("Something is wrong in Put")
@@ -92,7 +86,7 @@ app.put("/blogs/:id",function(req,res){
     })
 })
 
-// delete route
+// destroy route
 app.delete("/blogs/:id",function(req,res){
     blog.findByIdAndRemove(req.params.id,function(err,foundAndDeleted){
         if(err){

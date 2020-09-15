@@ -5,5 +5,9 @@
 
 <form action="/blogs/<%=found._id%>?_method=DELETE" method="POST">
 <button class="btn btn-primary">Delete</button></form>
+<form action="/blogs/<%=found._id%>/edit">
+    <button class="btn btn-primary">Edit</button>
+</form>
+
 
 <%- include("partials/footer.ejs") %>
